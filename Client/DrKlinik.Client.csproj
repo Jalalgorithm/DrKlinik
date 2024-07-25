@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css_s\open-iconic\FONT-LICENSE" />
-    <None Include="wwwroot\css_s\open-iconic\font\fonts\open-iconic.svg" />
-    <None Include="wwwroot\css_s\open-iconic\ICON-LICENSE" />
-    <None Include="wwwroot\css_s\open-iconic\README.md" />
     <None Include="wwwroot\Libraries\counterup\counterup.min.js" />
     <None Include="wwwroot\Libraries\easing\easing.js" />
     <None Include="wwwroot\Libraries\easing\easing.min.js" />
