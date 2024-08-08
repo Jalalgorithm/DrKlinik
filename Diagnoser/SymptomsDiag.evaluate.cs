@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DrKlinik_Server
+namespace Diagnoser
 {
     public partial class SymptomsDiag
     {

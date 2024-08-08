@@ -1,6 +1,8 @@
 ﻿@page "/simple-diagnosis"
-@using DrKlinik.Shared.DTO.Diagnose
-@using Microsoft.AspNetCore.Components.Forms
+@inject IDiagnoseService diagnoseService
+@inject NavigationManager navigationManager
+@inject PredictionResponse predictionResponse
+
 
 <div class="container-lg mt-2">
     <div class="text-center">
@@ -39,7 +41,13 @@
 
     public async Task DiagnosePatient()
     {
+        var result = await diagnoseService.DiagnoseDisease(sampleData);
 
+        if(result.Success)
+        {
+            predictionResponse.Message = result.Message;
+            navigationManager.NavigateTo("/result");
+        }
     }
 
     public async Task Failed()

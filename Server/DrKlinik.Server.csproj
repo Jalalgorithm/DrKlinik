@@ -18,6 +18,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Client\DrKlinik.Client.csproj" />
+    <ProjectReference Include="..\Diagnoser\Diagnoser.csproj" />
     <ProjectReference Include="..\Shared\DrKlinik.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Diagnoser\" />
   </ItemGroup>
 </Project>

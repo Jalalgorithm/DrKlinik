@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
 using Microsoft.ML;
-
-namespace DrKlinik_Server
-{
     public partial class SymptomsDiag
     {
         public const string RetrainFilePath =  @"C:\Users\AHMEED\Music\Dataset\Disease Prediction\Training.csv";
@@ -98,4 +95,4 @@ namespace DrKlinik_Server
             return pipeline;
         }
     }
- }
+ 

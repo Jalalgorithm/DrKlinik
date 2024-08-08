@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrKlinik.Client", "Client\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrKlinik.Shared", "Shared\DrKlinik.Shared.csproj", "{FA4F4AA5-8EF8-48FC-90A6-4E234773E6AE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diagnoser", "Diagnoser\Diagnoser.csproj", "{3C40A9DC-9784-4428-8029-6C97DFC9D1B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FA4F4AA5-8EF8-48FC-90A6-4E234773E6AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA4F4AA5-8EF8-48FC-90A6-4E234773E6AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA4F4AA5-8EF8-48FC-90A6-4E234773E6AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C40A9DC-9784-4428-8029-6C97DFC9D1B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C40A9DC-9784-4428-8029-6C97DFC9D1B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C40A9DC-9784-4428-8029-6C97DFC9D1B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C40A9DC-9784-4428-8029-6C97DFC9D1B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

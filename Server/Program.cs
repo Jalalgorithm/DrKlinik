@@ -1,4 +1,5 @@
 using DrKlinik.Server.Data;
+using DrKlinik.Server.Repositories.DiagnoseRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]!))
     };
 });
+
+builder.Services.AddScoped<IDiagnoseRepo, DiagnoseRepo>();
 
 var app = builder.Build();
 
