@@ -1,32 +1,106 @@
-﻿@page "/result"
-@inject PredictionResponse predictResponse
+﻿@page "/result-symptoms"
+@inject IDiagnoseService diagnoseService
+
+<div class="container my-5">
+    <div class="card shadow-lg custom-card">
+        <div class="card-header bg-primary text-white text-center">
+            <h2>Diagnosis</h2>
+            <p class="lead mb-0">Kindly select your symptoms.</p>
+        </div>
+        <div class="card-body">
+            <EditForm Model="@sampleData" OnValidSubmit="DiagnosePatient" OnInvalidSubmit="Failed">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="row">
+                    @foreach (var property in typeof(DiagnoseDTO).GetProperties())
+                    {
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <div class="form-check form-switch custom-switch">
+                                <input type="checkbox" id="@property.Name" class="form-check-input"
+                                       checked="@IsChecked(property.Name)"
+                                       @onchange="(e) => OnCheckboxChanged(e, property.Name)" />
+                                <label class="form-check-label" for="@property.Name">
+                                    @property.Name
+                                </label>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 custom-button">Submit</button>
+                <button type="button" class="btn btn-secondary w-100 mt-2" @onclick="ResetForm">Reset</button>
+            </EditForm>
+
+            @if (!string.IsNullOrEmpty(diagnosisResult))
+            {
+                <div class="result-card mt-4 p-4">
+                    <div class="result-header">
+                        <h3 class="text-center text-success">Diagnosis Result</h3>
+                    </div>
+                    <div class="result-body">
+                        <p class="lead text-center">
+                            @diagnosisResult
+                        </p>
+                    </div>
+                    <div class="text-center mt-3">
+                        <span class="badge bg-info">#StayHealthy</span>
+                        <span class="badge bg-success">#GetWellSoon</span>
+                    </div>
+                </div>
+            }
 
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCentered">
-    Launch centered demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal" id="exampleModalCentered" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenteredLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenteredLabel">Prediction Result</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @predictResponse.Message
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
         </div>
     </div>
 </div>
 
-@code {
 
+@code {
+    private DiagnoseDTO sampleData = new DiagnoseDTO();
+    private string diagnosisResult;
+
+    private async Task DiagnosePatient()
+    {
+        var result = await diagnoseService.DiagnoseDisease(sampleData);
+
+        if (result.Success)
+        {
+            diagnosisResult = result.Message;
+
+        }
+    }
+
+    private bool IsChecked(string propertyName)
+    {
+        var property = sampleData.GetType().GetProperty(propertyName);
+        if (property != null)
+        {
+            return (float)property.GetValue(sampleData) == 1f;
+        }
+        return false;
+    }
+
+    private void OnCheckboxChanged(ChangeEventArgs e, string propertyName)
+    {
+        var isChecked = (bool)e.Value;
+        var property = sampleData.GetType().GetProperty(propertyName);
+        if (property != null)
+        {
+            property.SetValue(sampleData, isChecked ? 1f : 0f);
+        }
+    } 
+
+    private void Failed()
+    {
+        
+    }
+
+    private void ResetForm()
+    {
+        // Reset the form data
+        sampleData = new DiagnoseDTO();
+        diagnosisResult = null;
+    }
 }
+

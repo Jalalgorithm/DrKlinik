@@ -1,7 +1,7 @@
 ﻿@page "/simple-diagnosis"
 @inject IDiagnoseService diagnoseService
 @inject NavigationManager navigationManager
-@inject PredictionResponse predictionResponse
+@inject IJSRuntime JSRuntime
 
 
 <div class="container-lg mt-2">
@@ -36,46 +36,70 @@
     </EditForm>
 </div>
 
-@code {
-    private DiagnoseDTO sampleData = new DiagnoseDTO();
+<!-- Modal -->
+<div class="modal fade" id="responseModal" tabindex="-1" aria-labelledby="responseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="responseModalLabel">Diagnosis Result</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if (!string.IsNullOrEmpty(diagnosisResult))
+                {
+                    @diagnosisResult
+                }
+                else
+                {
+                    <div class="alert alert-danger">An error occurred. Please try again.</div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-    public async Task DiagnosePatient()
-    {
-        var result = await diagnoseService.DiagnoseDisease(sampleData);
 
-        if(result.Success)
+    @code {
+        private DiagnoseDTO sampleData = new DiagnoseDTO();
+        private string diagnosisResult;
+
+        public async Task DiagnosePatient()
         {
-            predictionResponse.Message = result.Message;
-            navigationManager.NavigateTo("/result");
+            var result = await diagnoseService.DiagnoseDisease(sampleData);
+
+            if(result.Success)
+            {
+                diagnosisResult = result.Message;
+            await JSRuntime.InvokeVoidAsync("eval", "new bootstrap.Modal(document.getElementById('resultModal')).show();");
+            }
         }
-    }
 
-    public async Task Failed()
-    {
-
-    }
-
-    private bool IsChecked(string propertyName)
-    {
-        var property = sampleData.GetType().GetProperty(propertyName);
-        if (property != null)
+        public async Task Failed()
         {
-            return (float)property.GetValue(sampleData) == 1f;
-        }
-        return false;
-    }
 
-    private void OnCheckboxChanged(ChangeEventArgs e, string propertyName)
-    {
-        var isChecked = (bool)e.Value;
-        var property = sampleData.GetType().GetProperty(propertyName);
-        if (property != null)
+        }
+
+        private bool IsChecked(string propertyName)
         {
-            property.SetValue(sampleData, isChecked ? 1f : 0f);
+            var property = sampleData.GetType().GetProperty(propertyName);
+            if (property != null)
+            {
+                return (float)property.GetValue(sampleData) == 1f;
+            }
+            return false;
         }
-    }
 
-
-
+        private void OnCheckboxChanged(ChangeEventArgs e, string propertyName)
+        {
+            var isChecked = (bool)e.Value;
+            var property = sampleData.GetType().GetProperty(propertyName);
+            if (property != null)
+            {
+                property.SetValue(sampleData, isChecked ? 1f : 0f);
+            }
+        }
 
 }

@@ -1,0 +1,98 @@
+﻿/* Container and Card Styling */
+.custom-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+    .custom-card .card-header {
+        border-radius: 1rem 1rem 0 0;
+        padding: 1.5rem;
+    }
+
+    .custom-card .card-body {
+        padding: 2rem;
+    }
+
+/* Checkbox Styling */
+.custom-switch .form-check-input {
+    height: 1.5rem;
+    width: 3rem;
+    border-radius: 1rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.custom-switch .form-check-label {
+    font-weight: 500;
+    color: #495057;
+    margin-left: 1rem;
+}
+
+/* Button Styling */
+.custom-button {
+    font-size: 1.2rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+    .custom-button:hover {
+        background-color: #0056b3;
+    }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .custom-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .custom-switch .form-check-input {
+        height: 1.25rem;
+        width: 2.5rem;
+    }
+
+    .custom-button {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .custom-card .card-header {
+        padding: 1rem;
+    }
+
+    .custom-card .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Custom Styling for Result Display */
+.result-card {
+    background-color: #e9ecef;
+    border-radius: 1rem;
+    border: 2px solid #6c757d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result-header {
+    border-bottom: 2px solid #6c757d;
+    margin-bottom: 1rem;
+}
+
+.result-body {
+    font-size: 1.2rem;
+    color: #495057;
+}
+
+.badge {
+    font-size: 0.9rem;
+    margin: 0.5rem;
+    padding: 0.6rem 1rem;
+    border-radius: 0.75rem;
+}
+/* Custom Modal Styling */
+
+

@@ -6,6 +6,5 @@ namespace DrKlinik.Server.Repositories.DiagnoseRepository
     public interface IDiagnoseRepo
     {
         Task<Response> GeneralDiagnose(DiagnoseDTO diagnose);
-        Task<Response> DiagnoseHeartDisease(HeartDiseaseDTO heartDiseaseDTO);
     }
 }

@@ -19,5 +19,13 @@ namespace DrKlinik.Client.Services.DiagnoseService
 
             return response!;
         }
+
+        public async Task<Response> HeartCheckDisease(HeartDiseaseDTO diseaseDTO)
+        {
+            var result = await httpClient.PostAsJsonAsync("api/Diagnose/DetectHeart", diseaseDTO);
+            var response = await result.Content.ReadFromJsonAsync<Response>();
+
+            return response!;
+        }
     }
 }

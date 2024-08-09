@@ -11,49 +11,6 @@ namespace DrKlinik.Server.Repositories.DiagnoseRepository
 {
     public class DiagnoseRepo : IDiagnoseRepo
     {
-        private readonly HttpClient httpClient;
-
-        public DiagnoseRepo(HttpClient httpClient)
-        {
-            this.httpClient = httpClient;
-        }
-        public async Task<Response> DiagnoseHeartDisease(HeartDiseaseDTO heartDiseaseDTO)
-        {
-            if (heartDiseaseDTO==null)
-            {
-                return new Response
-                {
-                    Success = false,
-                    Message = "Input valid details for diagnosis"
-                };
-            }
-
-            var jsonRequest = JsonConvert.SerializeObject(heartDiseaseDTO);
-            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync("http://127.0.0.1:5000/diabetes", content);
-            response.EnsureSuccessStatusCode();
-
-            var predictionResponse = await response.Content.ReadFromJsonAsync<PredictionRequest>();
-
-            string message;
-
-            if (predictionResponse.Prediction==1)
-            {
-                message = "Heart Disease";
-
-            }
-            else
-            {
-                message = "No Heart Disease";
-            }
-
-            return new Response
-            {
-                Message = $"The Prediction is {message} with the accuracy {predictionResponse.Accuracy}",
-                Success=true
-            };
-        }
-
         public async Task<Response> GeneralDiagnose(DiagnoseDTO detection)
         {
             if (detection == null)

@@ -1,0 +1,130 @@
+﻿@page "/heart-diagnoser"
+@inject IDiagnoseService diagnoseService
+
+<EditForm Model="@heartDiseaseModel" OnValidSubmit="DetectHeartState">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="container mt-5 mb-2">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title text-center mb-4">Heart Information</h4>
+                        <div class="form-group mb-3">
+                            <label for="age">Age</label>
+                            <InputNumber id="age" class="form-control" @bind-Value="heartDiseaseModel.Age" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="sex">Sex</label>
+                            <InputSelect id="sex" class="form-control" @bind-Value="heartDiseaseModel.Sex">
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </InputSelect>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="chestPainType">Chest Pain Type</label>
+                            <InputSelect id="chestPainType" class="form-control" @bind-Value="heartDiseaseModel.ChestPainType">
+                                <option value="ATA">ATA</option>
+                                <option value="NAP">NAP</option>
+                                <option value="ASY">ASY</option>
+                                <option value="TA">TA</option>
+
+                            </InputSelect>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="restingBP">Resting Blood Pressure</label>
+                            <InputNumber id="restingBP" class="form-control" @bind-Value="heartDiseaseModel.RestingBP" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="cholesterol">Cholesterol</label>
+                            <InputNumber id="cholesterol" class="form-control" @bind-Value="heartDiseaseModel.Cholesterol" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="fastingBS">Fasting Blood Sugar</label>
+                            <InputNumber id="fastingBS" class="form-control" @bind-Value="heartDiseaseModel.FastingBS" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="restingECG">Resting ECG</label>
+                            <InputSelect id="restingECG" class="form-control" @bind-Value="heartDiseaseModel.RestingECG">
+                                <option value="Normal">Normal</option>
+                                <option value="ST">ST</option>
+                                <option value="LVH">LVH</option>
+
+                            </InputSelect>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="maxHR">Max Heart Rate</label>
+                            <InputNumber id="maxHR" class="form-control" @bind-Value="heartDiseaseModel.MaxHR" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="exerciseAngina">Exercise Angina</label>
+                            <InputSelect id="exerciseAngina" class="form-control" @bind-Value="heartDiseaseModel.ExerciseAngina">
+                                <option value="Y">Yes</option>
+                                <option value="N">No</option>
+                            </InputSelect>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="oldPeak">Old Peak</label>
+                            <InputNumber id="oldPeak" class="form-control" @bind-Value="heartDiseaseModel.OldPeak" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="stSlope">ST Slope</label>
+                            <InputSelect id="stSlope" class="form-control" @bind-Value="heartDiseaseModel.ST_Slope">
+                                <option value="Up">Up</option>
+                                <option value="Flat">Flat</option>
+                                <option value="Down">Down</option>
+
+                            </InputSelect>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        <button type="button" class="btn btn-secondary w-100 mt-2" @onclick="ResetForm">Reset</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+
+@if (!string.IsNullOrEmpty(resultMessage))
+{
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="alert alert-success text-center">
+                    <strong>@resultMessage</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private HeartDiseaseDTO heartDiseaseModel = new HeartDiseaseDTO()
+        {
+            Sex = "M",
+            ChestPainType = "ATA",
+            RestingECG = "Normal",
+            ExerciseAngina = "N",
+            ST_Slope = "Up"
+        };
+    private string resultMessage;
+
+    private async Task DetectHeartState()
+    {
+        var result = await diagnoseService.HeartCheckDisease(heartDiseaseModel);
+
+        if(result.Success)
+        {
+            resultMessage = result.Message;
+        }
+    }
+
+    private void ResetForm()
+    {
+        heartDiseaseModel = new HeartDiseaseDTO();
+        resultMessage = null;
+    }
+}

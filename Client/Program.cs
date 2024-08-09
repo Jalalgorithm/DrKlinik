@@ -10,7 +10,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-builder.Services.TryAddScoped<IDiagnoseService , DiagnoseService>();
-builder.Services.AddSingleton<PredictionResponse>();
+builder.Services.AddScoped<IDiagnoseService , DiagnoseService>();
+builder.Services.AddScoped<NewsServices>();
 
 await builder.Build().RunAsync();
