@@ -94,5 +94,32 @@
     border-radius: 0.75rem;
 }
 /* Custom Modal Styling */
+/* Search Bar Styling */
+.custom-search {
+    border-radius: 1rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 1.2rem;
+    border: 2px solid #6c757d;
+    transition: border-color 0.3s ease-in-out;
+}
+
+    .custom-search:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .custom-search {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .custom-search {
+        padding: 0.4rem 0.8rem;
+    }
+}
 
 

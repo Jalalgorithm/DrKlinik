@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrKlinik.Shared", "Shared\D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diagnoser", "Diagnoser\Diagnoser.csproj", "{3C40A9DC-9784-4428-8029-6C97DFC9D1B1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiseaseFinderApi", "DiseaseFinderApi\DiseaseFinderApi.csproj", "{D24EDAD3-22EA-48D6-9CA5-85BDBFB65A0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3C40A9DC-9784-4428-8029-6C97DFC9D1B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C40A9DC-9784-4428-8029-6C97DFC9D1B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C40A9DC-9784-4428-8029-6C97DFC9D1B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D24EDAD3-22EA-48D6-9CA5-85BDBFB65A0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D24EDAD3-22EA-48D6-9CA5-85BDBFB65A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D24EDAD3-22EA-48D6-9CA5-85BDBFB65A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D24EDAD3-22EA-48D6-9CA5-85BDBFB65A0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

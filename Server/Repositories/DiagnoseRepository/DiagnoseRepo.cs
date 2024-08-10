@@ -1,4 +1,5 @@
-﻿using DrKlinik.Client.Pages;
+﻿using DiseaseFinderApi;
+using DrKlinik.Client.Pages;
 using DrKlinik.Shared.DTO.Base;
 using DrKlinik.Shared.DTO.Diagnose;
 using Newtonsoft.Json;
@@ -22,8 +23,10 @@ namespace DrKlinik.Server.Repositories.DiagnoseRepository
                 };
             }
 
+            
 
-            var sampleData = new  SymptomsDiag.ModelInput()
+
+            var sampleData = new   DiseaseFinder.ModelInput()
             {
                 Itching = detection.Itching,
                 Skin_rash = detection.SkinRash,
@@ -160,7 +163,7 @@ namespace DrKlinik.Server.Repositories.DiagnoseRepository
             };
 
 
-            var result = SymptomsDiag.Predict(sampleData);
+            var result = DiseaseFinder.Predict(sampleData);
 
             if(result==null)
             {

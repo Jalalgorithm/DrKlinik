@@ -22,7 +22,7 @@
         </div>
     }
 
-    @if (Articles != null)
+    @if (Articles != null && Articles.Results.Any())
     {
         <div class="row justify-content-center">
             @foreach (var article in Articles.Results)

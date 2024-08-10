@@ -17,8 +17,12 @@
          <DataAnnotationsValidator />
         <ValidationSummary />
 
+        <div class="mb-3">
+            <input @bind="searchTerm" @bind:event="oninput" class="form-control" placeholder="Search symptoms..." />
+        </div>
+
         <div class="row">
-            @foreach (var property in typeof(DiagnoseDTO).GetProperties())
+            @foreach (var property in typeof(DiagnoseDTO).GetProperties().Where(p=>IsMatch(p.Name)))
             {
                 <div class="col-md-4 col-sm-6 mb-3">
                     <div class="form-check">
@@ -65,6 +69,12 @@
     @code {
         private DiagnoseDTO sampleData = new DiagnoseDTO();
         private string diagnosisResult;
+    private string searchTerm = string.Empty;
+
+    private bool IsMatch(string name)
+    {
+        return string.IsNullOrEmpty(searchTerm) || name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase);
+    }
 
         public async Task DiagnosePatient()
         {
