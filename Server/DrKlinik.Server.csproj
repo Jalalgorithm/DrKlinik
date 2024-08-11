@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.ML.FastTree" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Sample_WebApForDiagnosis\Sample_WebApForDiagnosis.csproj" />
     <ProjectReference Include="..\Client\DrKlinik.Client.csproj" />
     <ProjectReference Include="..\DiseaseFinderApi\DiseaseFinderApi.csproj" />
     <ProjectReference Include="..\Shared\DrKlinik.Shared.csproj" />

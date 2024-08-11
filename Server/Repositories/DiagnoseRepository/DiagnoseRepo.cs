@@ -3,6 +3,8 @@ using DrKlinik.Client.Pages;
 using DrKlinik.Shared.DTO.Base;
 using DrKlinik.Shared.DTO.Diagnose;
 using Newtonsoft.Json;
+using Sample_WebApForDiagnosis;
+using System.Collections.Immutable;
 using System.Net.Http;
 using System.Text;
 
@@ -19,14 +21,14 @@ namespace DrKlinik.Server.Repositories.DiagnoseRepository
                 return new Response
                 {
                     Success = false,
-                    Message = "Input valid details for diasgnosis"
+                    Message = "No symptoms sent"
                 };
             }
 
             
 
 
-            var sampleData = new   DiseaseFinder.ModelInput()
+            var sampleData = new    Sample.ModelInput()
             {
                 Itching = detection.Itching,
                 Skin_rash = detection.SkinRash,
@@ -163,32 +165,46 @@ namespace DrKlinik.Server.Repositories.DiagnoseRepository
             };
 
 
-            var result = DiseaseFinder.Predict(sampleData);
+            var result = Sample.PredictAllLabels(sampleData);
+
 
             if(result==null)
             {
                 return new Response
                 {
                     Success = false,
-                    Message = "No result found!"
+                    Message ="No result found"
                 };
             }
 
-            var accuracy = result.Score[0];
-            var prediction = result.PredictedLabel;
+            var topTwoResults = result.OrderByDescending(r => r.Value)
+                .Take(2)
+                .ToList();
 
-            var secondPrediction = result.PredictedLabel;
-            var secondAccuracy = result.Score[1];
-
+            var messge = FormatPredictionMessage(topTwoResults);
 
             return new Response
             {
                 Success = true,
-                Message = $"Disease {prediction} is detected on accuracy level {accuracy} while there is a probability for {secondPrediction} on {secondAccuracy} level"
+                Message = messge
             };
 
+          
 
 
+        }
+
+        private string FormatPredictionMessage(List<KeyValuePair<string, float>> results)
+        {
+            if (results.Count < 2)
+            {
+                return "Insufficient data to determine the top diseases.";
+            }
+
+            var first = results[0];
+            var second = results[1];
+
+            return $"{first.Key} with a probability of {first.Value * 100:0.##}% and {second.Key} with a probability of {second.Value * 100:0.##}% are detected.";
         }
     }
 }
